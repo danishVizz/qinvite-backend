@@ -1,0 +1,18 @@
+[22-Apr-2021 00:21:15 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Payment_model.php on line 30
+[26-Apr-2021 04:29:56 America/Chicago] PHP Fatal error:  Call to undefined method Payment_model::message_ack() in /home4/vizzweb/qinvite/application/controllers/Payments.php on line 127
+[26-Apr-2021 04:29:57 America/Chicago] PHP Fatal error:  Call to undefined method Payment_model::message_ack() in /home4/vizzweb/qinvite/application/controllers/Payments.php on line 127
+[26-Apr-2021 04:29:58 America/Chicago] PHP Fatal error:  Call to undefined method Payment_model::message_ack() in /home4/vizzweb/qinvite/application/controllers/Payments.php on line 127
+[26-Apr-2021 04:30:13 America/Chicago] PHP Fatal error:  Call to undefined method Payment_model::message_ack() in /home4/vizzweb/qinvite/application/controllers/Payments.php on line 127
+[26-Apr-2021 04:30:14 America/Chicago] PHP Fatal error:  Call to undefined method Payment_model::message_ack() in /home4/vizzweb/qinvite/application/controllers/Payments.php on line 127
+[26-Apr-2021 04:30:30 America/Chicago] PHP Fatal error:  Call to undefined method Payment_model::message_ack() in /home4/vizzweb/qinvite/application/controllers/Payments.php on line 127
+[26-Apr-2021 05:24:32 America/Chicago] PHP Fatal error:  Call to a member function send_message() on a non-object in /home4/vizzweb/qinvite/application/controllers/Api.php on line 839
+[30-Apr-2021 01:04:09 America/Chicago] PHP Parse error:  syntax error, unexpected ''type'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home4/vizzweb/qinvite/application/views/admin/payment.php on line 87
+[03-May-2021 01:58:46 America/Chicago] PHP Fatal error:  Call to undefined method Admin_model::get_event_cards() in /home4/vizzweb/qinvite/application/controllers/Admin.php on line 334
+[04-May-2021 04:12:20 America/Chicago] PHP Fatal error:  Call to undefined method Api_model::update_pdf() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 937
+[04-May-2021 05:58:05 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home4/vizzweb/qinvite/application/models/Api_model.php on line 188
+[07-May-2021 02:08:24 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
+[07-May-2021 02:08:56 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
+[07-May-2021 02:11:45 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
+[07-May-2021 02:11:45 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
+[07-May-2021 02:11:45 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
+[07-May-2021 02:32:29 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1100
