@@ -21,6 +21,7 @@ class Api_model extends CI_Model{
 
     function check_existance($table, $data){
         $res = $this->db->get_where($table, $data);
+        // echo $this->db->last_query();exit;
         if($res->num_rows() > 0){
             return true;
         }else{
@@ -140,17 +141,13 @@ class Api_model extends CI_Model{
     // ================== User functions ====================
 
     function add_user($data){
-        if(!$this->check_existance('users',['username' => $data['username']]) && (!$this->check_existance('users',['phone' => $data['phone']]) || !$this->check_existance('users',['email' => $data['email']]))){
-            $res = $this->db->insert("users", $data);
+        $res = $this->db->insert("users", $data);
             if($res){
                 $user_info = $this->db->get_where('users', $data)->result();
                 return $this->response(true,$user_info,'Sign up successful');
             }else{
                 return $this->response(false,[],'Data insertion failed');
             }
-        }else{
-            return $this->response(false, [], 'User already exists');
-        }
     }
 
     function get_user($data){
@@ -734,8 +731,8 @@ class Api_model extends CI_Model{
             $event->key = $k++;
             $event->host_details = $this->db->get_where('users',['id' => $event->user_id])->row();
             // $this->db->query('SELECT * FROM participants WHERE event_id = '.$event->id.' AND category_id IN (SELECT category_id FROM event_category WHERE event_id = '.$event->id.')');
-            $participants = $this->get_participants_events($event->id);
-            //echo $this->db->last_query();
+            $participants = $this->get_participants_events(['event_id' => $event->id]);
+            // echo $this->db->last_query();
             $event->participants = $participants;
         }
         

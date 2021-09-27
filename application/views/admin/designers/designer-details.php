@@ -22,7 +22,7 @@
                                 <p><b>Phone No: </b><?= $designer->phone ?></p>
                                 <p><b>Email: </b><?= $designer->email ?></p>   
                                 <p><b>Address:</b> <?=$designer->city. ', ' . $designer->country?></p>
-                                <p><b>Total Earning this month: </b><span class="font-weight-bold text-success"><?= $designer->earnings[date('M')] ?></span> QAR</p>
+                                <p><b>Total Earning this month: </b><span class="font-weight-bold text-success"><?= $designer->earnings["Jun"] ?></span> QAR</p>
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,6 @@
 <?php
 
 class Payment_model extends CI_Model{
-
-
     function get_event_details($event_id){
         $res = $this->db->get_where('events', ['id' => $event_id]);
         if($res->num_rows() > 0){
@@ -103,6 +101,6 @@ class Payment_model extends CI_Model{
             return false;
         }
     }
-  
+
 
 }

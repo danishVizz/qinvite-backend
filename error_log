@@ -16,3 +16,60 @@
 [07-May-2021 02:11:45 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
 [07-May-2021 02:11:45 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1091
 [07-May-2021 02:32:29 America/Chicago] PHP Fatal error:  Cannot use object of type stdClass as array in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1100
+[10-May-2021 06:34:16 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:34:28 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:35:29 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:35:42 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:37:52 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:38:54 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:40:46 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:45:34 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:45:43 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:45:50 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:45:52 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 06:49:40 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 07:07:21 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 07:17:38 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 07:19:59 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[10-May-2021 07:59:28 America/Chicago] PHP Parse error:  syntax error, unexpected ';', expecting ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 525
+[11-May-2021 06:44:43 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:44:50 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:45:04 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:46:06 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:46:13 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:46:28 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:46:28 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:46:28 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:46:35 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[11-May-2021 06:47:41 America/Chicago] PHP Parse error:  syntax error, unexpected ']' in /home4/vizzweb/qinvite/application/controllers/Api.php on line 402
+[19-May-2021 03:20:30 America/Chicago] PHP Fatal error:  Call to undefined method Api_model::get_settings() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1160
+[19-May-2021 03:20:33 America/Chicago] PHP Fatal error:  Call to undefined method Api_model::get_settings() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1160
+[19-May-2021 03:20:36 America/Chicago] PHP Fatal error:  Call to undefined method Api_model::get_settings() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1160
+[19-May-2021 03:20:43 America/Chicago] PHP Fatal error:  Call to undefined method Api_model::get_settings() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1160
+[25-May-2021 06:09:22 America/Chicago] PHP Fatal error:  Call to a member function get_users() on a non-object in /home4/vizzweb/qinvite/application/controllers/Admin.php on line 757
+[03-Jun-2021 00:26:32 America/Chicago] PHP Fatal error:  Call to undefined method stdClass::result() in /home4/vizzweb/qinvite/application/models/Admin_model.php on line 563
+[04-Jun-2021 07:59:50 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[02-Jul-2021 05:48:15 America/Chicago] PHP Fatal error:  Call to a member function update_user() on a non-object in /home4/vizzweb/qinvite/application/controllers/Admin.php on line 160
+[06-Jul-2021 02:56:49 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[06-Jul-2021 02:59:33 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[06-Jul-2021 03:03:19 America/Chicago] PHP Warning:  Missing boundary in multipart/form-data POST data in Unknown on line 0
+[06-Jul-2021 07:22:48 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 07:25:15 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 07:27:13 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 07:28:51 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 07:29:12 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 08:39:39 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 08:47:22 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 09:05:33 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 09:07:21 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 09:07:32 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 09:08:39 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[06-Jul-2021 09:09:52 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Api_model.php on line 585
+[28-Jul-2021 05:09:00 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Admin_model.php on line 148
+[28-Jul-2021 05:13:42 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Admin_model.php on line 148
+[28-Jul-2021 05:14:20 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Admin_model.php on line 148
+[28-Jul-2021 05:14:31 America/Chicago] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home4/vizzweb/qinvite/application/models/Admin_model.php on line 148
+[16-Sep-2021 06:43:25 America/Chicago] PHP Fatal error:  Call to a member function submit_image() on a non-object in /home4/vizzweb/qinvite/application/controllers/Admin.php on line 1130
+[16-Sep-2021 06:44:31 America/Chicago] PHP Fatal error:  Call to a member function submit_image() on a non-object in /home4/vizzweb/qinvite/application/controllers/Admin.php on line 1130
+[17-Sep-2021 06:36:33 America/Chicago] PHP Fatal error:  Call to undefined function apiExpired() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1958
+[17-Sep-2021 06:36:58 America/Chicago] PHP Fatal error:  Call to undefined function apiExpired() in /home4/vizzweb/qinvite/application/controllers/Api.php on line 1958

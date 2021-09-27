@@ -5,6 +5,7 @@ class Admin extends CI_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model('admin_model');
+        $this->load->model('api_model');
         // if(!$this->session->userdata("admin_id") && $this->uri->segment(2)!=="login"){
         //     redirect(base_url()."admin/login");
         // }
@@ -664,6 +665,7 @@ class Admin extends CI_Controller{
         $data['event']->designer = $this->admin_model->get_event_designer($data['event']->id);
         $payment_details = $this->admin_model->get_payment_details(['order_id' => $data['event']->id]);
         if($payment_details){
+
             $data['event']->payment = $payment_details;
         }
 
@@ -1104,6 +1106,51 @@ class Admin extends CI_Controller{
         $this->load->view('admin/profile/site-settings',$data);
     }
 
+    public function submit_design(){
+        $event_id = $this->db->escape_str($this->input->get('event_id'));
+        $designer_id = $this->db->escape_str($this->input->get('designer_id'));
+        
+            if($_FILES['event_card']['size'] > 10){
+                    
+                $file = $_FILES["event_card"];
+                $filename = $file["name"];
+                $file_name_split = explode(".",$filename);
+                $ext = end($file_name_split);
+                $allowed_ext = array("jpg","png","jpeg","gif","mp4", "mov","mkv","avi","PNG","JPG","JPEG","GIF","MP4", "MOV","MKV","AVI");
+                
+                if(in_array($ext,$allowed_ext)){
+                    //echo $_FILES['event_card']['name'];exit;
+                    $img = $this->upload_img($file,"event_card/");
+                    $card_data = [
+                        'design_card' => $img,
+                        'event_id' => $event_id,
+                        'designer_id' => $designer_id,
+                    ];
+    
+                    //$res = $this->api_model->edit_event($event_data, $event_id);
+                    $res = $this->api_model->submit_image($card_data);
+                    $this->api_model->update_event_request(['design_status' => 3], ['event_id' => $event_id, 'designer_id' => $designer_id]);
+    
+                    if($res){
+                        $res = true;
+                    }else{
+                        $res = false;
+                    }
+                }else{
+                    $res = false;
+                }
+
+                echo "<script>
+                        setTimeout(function () {
+                        window.ReactNativeWebView.postMessage('{$res}')
+                        }, 2000)
+                    </script>";
+                    exit;
+            }
+
+        $this->load->view('admin/upload_image');
+    }
+
 // ===================================================================================================================
     /**
      * ======================================
@@ -1423,7 +1470,7 @@ class Admin extends CI_Controller{
             $para = 'This is a text to encode become QR Code';
             $params['data'] = $para;
             $params['level'] = 'H';
-            $params['size'] = 2;
+            $params['size'] = 3;
             $params['savename'] = FCPATH.'tes.png';
             $config['black'] = array(200,180,190); // array, default is array(255,255,255)
             $config['white'] = array(255,255,255); // array, default is array(0,0,0)
@@ -1451,12 +1498,10 @@ class Admin extends CI_Controller{
         $config['wm_overlay_path'] = FCPATH.'images/qr_codes/3.png'; 
         $config['wm_type'] = 'overlay';
         $config['wm_opacity'] = '100';
-        $config['wm_x_transp'] = '0';
-        $config['wm_y_transp'] = '0';
         // $config['wm_vrt_alignment'] = 'top';
         // $config['wm_hor_alignment'] = 'left';
-        // $config['wm_vrt_offset'] = '100';
-        // $config['wm_hor_offset'] = '20';
+        $config['wm_vrt_offset'] = '100';
+        $config['wm_hor_offset'] = '20';
         $config['dynamic_output'] = true;
         $image_name = 'test.jpg';
         $config['new_image'] = FCPATH.$image_name;
@@ -1531,40 +1576,5 @@ class Admin extends CI_Controller{
         }
         $this->pdf->html($html);
         $this->pdf->create('save');
-    }
-
-
-    function check($width){
-        $img_size = 1300;
-        $qr_size = 150;
-        $size = 0;
-        $qr_size = round(($qr_size/$img_size)*$width,0);
-
-        echo $qr_size . "<br>";
-
-        if($qr_size > 41 && $qr_size < 82){
-            $size = 1;
-        }else if($qr_size >82 && $qr_size < 123){
-            $size = 2;
-        }else if($qr_size > 123 && $qr_size < 164){
-            $size = 3;
-        }else if($qr_size > 164 && $qr_size < 205){
-            $size = 4;
-        }else if($qr_size > 205 && $qr_size < 246){
-            $size = 5;
-        }else if($qr_size > 246 && $qr_size < 287){
-            $size = 6;
-        }else if($qr_size > 287 && $qr_size < 328){
-            $size = 7;
-        }else if($qr_size > 328 && $qr_size < 369){
-            $size = 8;
-        }else if($qr_size > 369 && $qr_size < 410){
-            $size = 9;
-        }else if($qr_size > 410){
-            $size = 10;
-        }
-
-
-        echo $size;
     }
 }

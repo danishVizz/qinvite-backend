@@ -1,8 +1,11 @@
 Array
 (
-    [id] => 135
-    [people_per_qr] => 2
-    [phones] => allowed
-    [name] => Amigos2356
-    [participants] => [{"name":"Abdul Wadood","number":"03325349569","isphoneallow":false},{"name":"Abdullah","number":"03229865466","isphoneallow":false},{"name":"Abubakar","number":"+923156333257","isphoneallow":false},{"name":"Adeel","number":"03315581417","isphoneallow":false}]
+    [name] => pdfcat
+    [phones] => notallowed
+    [people_per_qr] => 1
+    [user_id] => 100
+    [participants] => [{"participant_id":"868","name":"Haroon","number":"+923448876648","isselected":false,"isphoneallow":false},{"participant_id":"867","name":"Zee","number":"+92512261588","isselected":true,"isphoneallow":false}]
+    [event_id] => 490
+    [category_type] => pdf
+    [id] => 319
 )

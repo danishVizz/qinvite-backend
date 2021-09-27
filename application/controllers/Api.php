@@ -8,6 +8,7 @@ class Api extends REST_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('api_model');
+        $this->load->helper('common_helper');
     }
 
     function preview($data){
@@ -70,12 +71,11 @@ class Api extends REST_Controller{
             $errors .= ((!filter_var($email,FILTER_VALIDATE_EMAIL)) ? "Invalid Email" : "");
         }
         $errors .= ((strlen($password) < 6) ? "Password length must not be less than 6" : "");
+        $errors .= ($this->api_model->check_existance('users',['username'=> $cnic, 'status' => 0]) ? 'ID card already exists ': '');
+        $errors .= ($this->api_model->check_existance('users',['phone'=> $phone, 'status' => 0]) ? 'Phone Number already exists ': '');
+        $errors .= ($this->api_model->check_existance('users',['email'=> $email, 'status' => 0]) ? 'Email already exists ': '');
 
         if($errors ==""){
-            if($this->api_model->check_existance('users',['username'=> $cnic])){
-                $res = $this->api_model->response(false, [], 'User already exists!');
-                $this->set_response($res, REST_Controller::HTTP_NOT_FOUND);
-            }else{
                 $data = array(
                     'username' => $this->db->escape_str($cnic),
                     'password' => md5($password),
@@ -88,7 +88,6 @@ class Api extends REST_Controller{
                 $res = $this->api_model->add_user($data);
         
                 $this->set_response($res, REST_Controller::HTTP_OK);
-            }
         }else{
             $err = $this->api_model->response(false, [], $errors);
             $this->set_response($err, REST_Controller::HTTP_OK);
@@ -138,43 +137,53 @@ class Api extends REST_Controller{
     }
 
 
-    public function forget_password_get(){
-        $number = $this->db->escape_str($this->input->get('number'));
+    public function forget_password_post(){
+        $number = $this->db->escape_str($this->input->post('number'));
         $errors = ($this->api_model->check_existance('users',['phone' => $number]) ? "": "User doesn't exist");
-        if(!$errors){
-            $user = $this->api_model->get_user(['phone' => $number]);
-            $user = $user['data'][0];
-            $otp = rand(1,9999);
-            $message = 'Your Qinvite verification code is '.$otp;
-            $data = [
-                'phone' => $number,
-                'body'  => $message
-            ];
-            $result = $this->send_otp($data);
-            // $this->preview($data);
-            if($result->sent == 1){
-                $res = [
-                    'status' => true,
-                    'data' => [
-                        'otp' => $otp,
-                        'user_id' => $user->id,
-                        'phone' => $user->phone
-                    ],
-                    'message' => 'Message sent successfully'
+        if($this->num_exists($number)){
+            if(!$errors){
+                $user = $this->api_model->get_user(['phone' => $number]);
+                $user = $user['data'][0];
+                $otp = rand(1111,9999);
+                $message = 'Your Qinvite verification code is '.$otp;
+                $data = [
+                    'phone' => $number,
+                    'body'  => $message
                 ];
+                $result = $this->send_otp($data);
+                // $this->preview($data);
+                if($result->sent == 1){
+                    $res = [
+                        'status' => true,
+                        'data' => [
+                            'otp' => $otp,
+                            'user_id' => $user->id,
+                            'phone' => $user->phone
+                        ],
+                        'message' => 'Message sent successfully'
+                    ];
+                }else{
+                    $res = [
+                        'status' => false,
+                        'data' => [],
+                        'message' => 'Message sending Failed'
+                    ];
+                }
             }else{
                 $res = [
                     'status' => false,
                     'data' => [],
-                    'message' => 'Message sending Failed'
+                    'message' => $errors
                 ];
             }
         }else{
             $res = [
                 'status' => false,
                 'data' => [],
-                'message' => $errors
+                'message' => "Number doesn't exist on whatsapp, if you want to reset please contact support. Or register with whatsapp number."
             ];
+
+            // 'message' => ["Number doesn't exist on whatsapp","if you want to reset please contact support", "Or register with whatsapp number."]
         }
         $this->set_response($res, REST_Controller::HTTP_OK);
     }
@@ -1445,8 +1454,17 @@ function get_rp_events_get(){
 }
 
 function check_in_get($id){
+    $participant = $this->api_model->get_participants(['id' => $id]);
+    $participant = $participant[0];
+    $event = $this->api_model->get_events(['id' => $participant->event_id]);
+    $event = $event['data'][0];
+    if(date('Y-m-d H:i:s') < date('Y-m-d H:i:s', strtotime($event->event_date))){
+        $res = $this->api_model->check_in($id);
+    }else{
+        $res = ['status' => false, 'data' => [], 'message' => 'Event already closed'];
+    }
+
     
-    $res = $this->api_model->check_in($id);
     $this->set_response($res, REST_Controller::HTTP_OK);
 
 }
@@ -1470,9 +1488,50 @@ function check_out_get($id){
     }
 
     
-    public function submit_design_post(){
-        $event_id = $this->db->escape_str($this->input->post('event_id'));
-        $designer_id = $this->db->escape_str($this->input->post('designer_id'));
+    // public function submit_design_post(){
+    //     $event_id = $this->db->escape_str($this->input->post('event_id'));
+    //     $designer_id = $this->db->escape_str($this->input->post('designer_id'));
+    //     if($_FILES['event_card']['size'] > 10){
+                    
+    //         $file = $_FILES["event_card"];
+    //         $filename = $file["name"];
+    //         $file_name_split = explode(".",$filename);
+    //         $ext = end($file_name_split);
+    //         $allowed_ext = array("jpg","png","jpeg","gif","mp4", "mov","mkv","avi","PNG","JPG","JPEG","GIF","MP4", "MOV","MKV","AVI");
+            
+    //         if(in_array($ext,$allowed_ext)){
+    //             //echo $_FILES['event_card']['name'];exit;
+    //             $img = $this->upload_img($file,"images/event_card/");
+    //             $card_data = [
+    //                 'design_card' => $img,
+    //                 'event_id' => $event_id,
+    //                 'designer_id' => $designer_id,
+    //             ];
+
+    //             //$res = $this->api_model->edit_event($event_data, $event_id);
+    //             $res = $this->api_model->submit_image($card_data);
+    //             $this->api_model->update_event_request(['design_status' => 3], ['event_id' => $event_id, 'designer_id' => $designer_id]);
+
+    //             if($res){
+    //                 $res=[
+    //                     'status'=> true,
+    //                     'data'=> [],
+    //                     'message' => "Image uploaded successfully"
+
+    //                 ];
+    //             }
+
+    //             $this->response($res, REST_Controller::HTTP_OK);
+    //         }else{
+    //             $this->set_response('Invalid file format', REST_Controller::HTTP_NOT_FOUND);
+    //         }
+    //     }
+    // }
+
+    public function submit_design_get(){
+        $event_id = $this->db->escape_str($this->input->get('event_id'));
+        $designer_id = $this->db->escape_str($this->input->get('designer_id'));
+        
         if($_FILES['event_card']['size'] > 10){
                     
             $file = $_FILES["event_card"];
@@ -1508,6 +1567,8 @@ function check_out_get($id){
                 $this->set_response('Invalid file format', REST_Controller::HTTP_NOT_FOUND);
             }
         }
+
+        $this->load->view('admin/upload_image');
     }
 
     public function accept_design_post(){
@@ -1754,32 +1815,44 @@ function check_out_get($id){
             $message_count = 0;
         }
 
-
-        $data['ackNotificationsOn'] = 1;
+        
         $token = $api_token[$current_index];
         $instanceId = $api_instance[$current_index];
-        $url = 'https://api.chat-api.com/instance'.$instanceId.'/sendMessage?token='.$token;
-        // Make a POST request
-        $options = stream_context_create(['http' => [
-                'method'  => 'POST',
-                'header'  => 'Content-type: application/json',
-                //'ackNotificationsOn' => 1,
-                'content' => $json
-            ]
-        ]);
-        // Send a request
 
-        try {
-            $result = file_get_contents($url, false, $options);
-            $result = json_decode($result);
-        } catch (\Throwable $th) {
-            $result->sent = false;
+        if(!apiExpired($instanceId, $token)){
+
+            $data['ackNotificationsOn'] = 1;
+            $url = 'https://api.chat-api.com/instance'.$instanceId.'/sendMessage?token='.$token;
+            // Make a POST request
+            $options = stream_context_create(['http' => [
+                    'method'  => 'POST',
+                    'header'  => 'Content-type: application/json',
+                    //'ackNotificationsOn' => 1,
+                    'content' => $json
+                ]
+            ]);
+            // Send a request
+    
+            try {
+                $result = file_get_contents($url, false, $options);
+                $result = json_decode($result);
+            } catch (\Throwable $th) {
+                $result->sent = false;
+            }
+            
+            //$this->preview($result);
+            $message_count++;
+            $this->api_model->save_settings('message_count', $message_count);
+            return $result;
+        }else{
+            $res = [
+                'status' => false,
+                'data' => [],
+                'message' => 'Something went wrong with Chat API'
+            ];
+            echo json_encode($res);
+            exit;
         }
-        
-        //$this->preview($result);
-        $message_count++;
-        $this->api_model->save_settings('message_count', $message_count);
-        return $result;
     }
 
     function get_random_number($total_index,$except) {
@@ -1820,32 +1893,43 @@ function check_out_get($id){
             $message_count = 0;
         }
 
-
-        $data['ackNotificationsOn'] = 1;
+        
         $token = $api_token[$current_index];
         $instanceId = $api_instance[$current_index];
-        $url = 'https://api.chat-api.com/instance'.$instanceId.'/sendFile?token='.$token;
-        // Make a POST request
-        $options = stream_context_create(['http' => [
-                'method'  => 'POST',
-                'header'  => 'Content-type: application/json',
-                //'ackNotificationsOn' => 1,
-                'content' => $json
-            ]
-        ]);
-        // Send a request
 
-        try {
-            $result = file_get_contents($url, false, $options);
-            $result = json_decode($result);
-        } catch (\Throwable $th) {
-            $result->sent = false;
+        if(!apiExpired($instanceId, $token)){
+            $data['ackNotificationsOn'] = 1;
+            $url = 'https://api.chat-api.com/instance'.$instanceId.'/sendFile?token='.$token;
+            // Make a POST request
+            $options = stream_context_create(['http' => [
+                    'method'  => 'POST',
+                    'header'  => 'Content-type: application/json',
+                    //'ackNotificationsOn' => 1,
+                    'content' => $json
+                ]
+            ]);
+            // Send a request
+
+            try {
+                $result = file_get_contents($url, false, $options);
+                $result = json_decode($result);
+            } catch (\Throwable $th) {
+                $result->sent = false;
+            }
+            
+            //$this->preview($result);
+            $message_count++;
+            $this->api_model->save_settings('message_count', $message_count);
+            return $result;
+        }else{
+            $res = [
+                'status' => false,
+                'data' => [],
+                'message' => 'Something went wrong with Chat API'
+            ];
+            echo json_encode($res);
+            exit;
         }
-        
-        //$this->preview($result);
-        $message_count++;
-        $this->api_model->save_settings('message_count', $message_count);
-        return $result;
     }
 
     function generate_pdf($message, $participants, $event_id){
@@ -1893,15 +1977,24 @@ function check_out_get($id){
                 $total_index = $value["setting_value"];
             }
         }
-        
         $token = $api_token[$current_index];
         $instanceId = $api_instance[$current_index];
-        $result = file_get_contents('https://api.chat-api.com/instance'.$instanceId.'/checkPhone?token='.$token.'&phone='.$number);
-        $result = json_decode($result);
-        if($result->result == 'exists'){
-            return true;
+        if(!apiExpired($instanceId, $token)){
+            $result = file_get_contents('https://api.chat-api.com/instance'.$instanceId.'/checkPhone?token='.$token.'&phone='.$number);
+            $result = json_decode($result);
+            if($result->result == 'exists'){
+                return true;
+            }else{
+                return false;
+            }
         }else{
-            return false;
+            $res = [
+                'status' => false,
+                'data' => [],
+                'message' => 'Something went wrong with Chat API'
+            ];
+            echo json_encode($res);
+            exit;
         }
     }
 
